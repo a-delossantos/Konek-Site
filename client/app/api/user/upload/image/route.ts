@@ -44,7 +44,6 @@ export async function POST(req:Request) {
                 imageUrl: data.url
             }
         })
-        console.log('test')
         return new NextResponse(JSON.stringify({imageUrl: userUpdateImage.imageUrl}))
     }  
     
