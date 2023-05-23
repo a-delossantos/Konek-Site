@@ -1,0 +1,107 @@
+#postForm {
+    background-color: #fff;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    padding: 20px 15px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #a5a5a5;
+}
+
+.profileImage {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+}
+
+
+.postInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    overflow: hidden;
+    border: none;
+    resize: none;
+    border-radius: 5px;
+}
+
+.postInput:focus {
+    outline: none;
+}
+
+
+.actionContainer {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.actionBtn {
+    color: var(--color-dark);
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 3px;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.actionBtn svg {
+    height: 25px;
+    width: 25px;
+}
+
+.actionBtn:hover {
+    color: #fff;
+    background-color: var(--color-primary);
+}
+
+.imgUploadInput {
+    display: none;
+}
+
+.postBtn {
+    width: 100%;
+    padding: 5px 15px;
+    border: none;
+    background: var(--color-dark);
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 2px solid var(--color-dark);
+}
+
+.postBtn:hover {
+    background: transparent;
+    color: var(--color-dark);
+}
+
+
+.pictureContainer {
+    background-color: #fff;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pictureContainer img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,124 @@
+.user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.profile-image {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: block;
+    object-fit: cover;
+    border: 2px solid var(--color-accent);
+}
+
+.user:hover .user-dropdown{
+    display: block;
+}
+
+.user-dropdown {
+    position: absolute;
+    background-color: var(--color-dark);
+    border: 3px solid var(--color-dark);
+    top: 100%;
+    width: 300px;
+    right: 25%;
+    margin-top: 10px;
+    display: none;
+    border-radius: 5px;
+    z-index: 2;
+    color: #fff;
+}
+
+.user-dropdown:before {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    content: '';
+    display: block;
+    z-index: 1;
+  }
+.user-dropdown:after {
+    position: absolute;
+    top: -8px;
+    right: 1px;
+    width: 0; 
+    height: 0; 
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent; 
+    border-bottom: 8px solid var(--color-dark);
+    content: '';
+    display: block;
+    z-index: 1;
+  }
+
+.user-dropdown .profile-image {
+    margin: 0 auto;
+    height: 100px;
+    width: 100px;
+    border: 3px solid var(--color-accent);
+}
+
+.user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+}
+
+.btn {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn:hover {
+    color: var(--color-accent)
+}
+
+
+.img-container {
+    position: relative;
+}
+
+
+.img-button {
+    color: var(--color-dark);
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 3px;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.img-button input {
+    display: none;
+}
+
+.img-button svg {
+    height: 20px;
+    width: 20px;
+}
+
+.img-button:hover {
+    color: #fff;
+    background-color: var(--color-primary);
+}
+

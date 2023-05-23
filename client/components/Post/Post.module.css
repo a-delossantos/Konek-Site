@@ -1,0 +1,66 @@
+.postContainer {
+    background-color: #fff;
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.postInfo {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.profileImage {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border: 2px solid var(--color-accent);
+}
+
+.author {
+    font-weight: 500;
+}
+
+.postDate {
+    font-size: 12px;
+    color: #1e1e1e;
+}
+
+.postContent {
+    margin-top: 10px;
+}
+
+.contentImage {
+    height: auto;
+    max-height: 400px;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+    object-fit: contain;
+    margin-top: 20px;
+    object-position: center;
+}
+.actionContainer {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.actionContainer div{
+    flex: 1 1 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.actionContainer div:nth-child(1) {
+    border-right: 1px solid #f1f1f1;
+}
+
+.actionContainer div:hover {
+    background-color: #f1f1f1;
+}
