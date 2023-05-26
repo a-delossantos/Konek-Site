@@ -7,6 +7,13 @@ import { useGlobalContext } from "@/lib/ContextProvider";
 import Link from "next/link";
 import Image from "next/image";
 import { BiImageAdd } from "react-icons/bi";
+import {
+    connectSocket,
+    disconnectSocket,
+    onSocketEvent,
+    offSocketEvent,
+    onSocketEmit,
+} from "@/lib/socket";
 
 export const PostForm = () => {
     const { data: session } = useSession();
@@ -18,23 +25,36 @@ export const PostForm = () => {
     const [picture, setPicture] = useState("");
     const [file, setFile] = useState() as any;
 
-    const submitPost = () => {
+    const submitPost = async () => {
         if (!picture && !textAreaValue) {
             return;
         }
-        const formData = new FormData();
-        formData.append("content", textAreaValue);
-        if (file) {
-            formData.append("file", file);
-        }
 
-        const res = fetch("/api/post", {
-            method: "POST",
-            body: formData,
-        });
+        if (file != null) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "my-uploads");
+
+            const data = await fetch(
+                "https://api.cloudinary.com/v1_1/dxz5v7jn3/image/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            ).then((res) => res.json());
+            if (data) {
+                onSocketEmit("createPost", {
+                    content: textAreaValue,
+                    imageUrl: data.secure_url,
+                });
+            }
+        } else {
+            onSocketEmit("createPost", { content: textAreaValue });
+        }
 
         setTextAreaValue("");
         setPicture("");
+        setFile(undefined);
     };
 
     const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
