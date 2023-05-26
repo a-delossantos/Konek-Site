@@ -23,7 +23,6 @@ io.on("connection", async (socket) => {
             socketId: socket.id,
         },
     });
-
     const user = await prisma.user.findUnique({
         where: { id: parseInt(userId) },
         include: {
@@ -49,10 +48,8 @@ io.on("connection", async (socket) => {
             },
         },
     });
-
     const ownPosts = user?.posts;
     const friendpost = user?.friends.flatMap((friend) => friend.friend.posts);
-
     const getInitialPost = () => {
         if (friendpost) {
             const allpost = ownPosts?.concat(friendpost);
@@ -62,9 +59,9 @@ io.on("connection", async (socket) => {
             return initialPost;
         }
     };
-
     const initialPost = getInitialPost();
     io.to(socket.id).emit("initialPost", initialPost);
+    //Connect Event - End
 
     socket.on("disconnect", async () => {
         await prisma.user.update({
@@ -77,6 +74,7 @@ io.on("connection", async (socket) => {
         });
     });
 
+    //Create Post Event - Start
     socket.on("createPost", async (data) => {
         const content = data.content;
         const imageUrl = data.imageUrl || null;
@@ -102,7 +100,6 @@ io.on("connection", async (socket) => {
                 },
             },
         });
-
         const emitNewPost = () => {
             const friends = post.author.friends.flatMap(
                 (friend) => friend.friend.socketId!
@@ -111,41 +108,11 @@ io.on("connection", async (socket) => {
 
             friends.forEach((socketid) => {
                 io.to(socketid).emit("newPost", post);
-                console.log(socketid);
             });
         };
-
         emitNewPost();
-
-        // const emitNewPost = () => {
-        //     post.author.friends.map((friend) => {
-        //         console.log(friend);
-        //         console.log("emitting");
-        //         io.to(friend.friend.socketId!).emit("newPost", post);
-        //     });
-        // };
-
-        // emitNewPost();
-
-        // const userFriends = await prisma.user.findUnique({
-        //     where: { id: parseInt(userId) },
-        //     include: {
-        //         friends: {
-        //             include: {
-        //                 friend: true,
-        //             },
-        //             where: {
-        //                 friend: { socketId: { not: null } },
-        //             },
-        //         },
-        //     },
-        // });
-
-        // let friendlist: string[] = [socket.id];
-        // const friends = userFriends?.friends.map((friend) =>
-        //     friendlist.push(friend.friend.socketId!)
-        // );
     });
+    //Create Post Event - End
 });
 
 const port = 3001;
