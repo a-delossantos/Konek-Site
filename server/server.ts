@@ -5,6 +5,7 @@ import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { parse } from "path";
+import { emit } from "process";
 
 const app = express();
 const server = http.createServer(app);
@@ -30,6 +31,11 @@ io.on("connection", async (socket) => {
                 orderBy: { createdAt: "asc" },
                 include: {
                     author: true,
+                    likes: {
+                        include: {
+                            user: true,
+                        },
+                    },
                 },
             },
             friends: {
@@ -40,6 +46,11 @@ io.on("connection", async (socket) => {
                                 orderBy: { createdAt: "asc" },
                                 include: {
                                     author: true,
+                                    likes: {
+                                        include: {
+                                            user: true,
+                                        },
+                                    },
                                 },
                             },
                         },
@@ -98,6 +109,11 @@ io.on("connection", async (socket) => {
                         },
                     },
                 },
+                likes: {
+                    include: {
+                        user: true,
+                    },
+                },
             },
         });
         const emitNewPost = () => {
@@ -113,6 +129,66 @@ io.on("connection", async (socket) => {
         emitNewPost();
     });
     //Create Post Event - End
+
+    // Post Get Like Event - Start
+
+    socket.on("getLikes", async (data) => {
+        const postId = data.postId;
+
+        const likes = await prisma.like.findMany({
+            where: {
+                postId: postId,
+            },
+            select: {
+                userId: true,
+            },
+        });
+        const postLike = await prisma.like.findMany({
+            where: {
+                postId: postId,
+            },
+            select: {
+                userId: true,
+            },
+        });
+
+        if (postLike) {
+            const postLikers = postLike.map((like) => like.userId);
+            io.emit("likeUpdate", {
+                likers: postLikers,
+                postId: postId,
+            });
+        }
+    });
+
+    // Post Like Event - Start
+    socket.on("likePost", async (data) => {
+        const postId = data.postId;
+
+        const likePost = await prisma.like.create({
+            data: {
+                userId: parseInt(userId),
+                postId: postId,
+            },
+        });
+
+        const postLike = await prisma.like.findMany({
+            where: {
+                postId: postId,
+            },
+            select: {
+                userId: true,
+            },
+        });
+
+        if (postLike) {
+            const postLikers = postLike.map((like) => like.userId);
+            io.emit("likeUpdate", {
+                likers: postLikers,
+                postId: postId,
+            });
+        }
+    });
 });
 
 const port = 3001;

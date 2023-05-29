@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./Post.module.css";
-import { AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
+import { PostActions } from "../PostActions/PostActions";
+import { json } from "stream/consumers";
 
 interface AuthorProps {
     imageUrl: string;
@@ -9,12 +10,22 @@ interface AuthorProps {
     lastName: string;
     email: string;
 }
+
+interface LikeProps {
+    user: UserProps;
+}
+
+interface UserProps {
+    id: number;
+}
+
 interface PostProps {
     id: number;
     createdAt: string;
     imageUrl: string;
     content: string;
     author: AuthorProps;
+    likes: LikeProps[];
 }
 interface PostsProps {
     post: PostProps;
@@ -87,14 +98,7 @@ export const Post = (post: PostsProps) => {
                     />
                 )}
             </div>
-            <div className={styles.actionContainer}>
-                <div>
-                    <AiOutlineHeart /> Like
-                </div>
-                <div>
-                    <AiOutlineComment /> Comment
-                </div>
-            </div>
+            <PostActions key={post.post.id} post={post.post} />
         </div>
     );
 };

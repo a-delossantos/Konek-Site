@@ -41,26 +41,3 @@
     margin-top: 20px;
     object-position: center;
 }
-.actionContainer {
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.actionContainer div{
-    flex: 1 1 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.actionContainer div:nth-child(1) {
-    border-right: 1px solid #f1f1f1;
-}
-
-.actionContainer div:hover {
-    background-color: #f1f1f1;
-}

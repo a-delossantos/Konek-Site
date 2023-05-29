@@ -1,0 +1,32 @@
+.actionContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 10px;
+}
+
+.actionContainer button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    height: 25px;
+}
+
+.actionContainer button svg {
+    height: 20px;
+    width: 20px;
+}
+
+.actionContainer button:hover svg{
+    height: 22px;
+    width: 22px;
+}
+
+.like {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+}
